@@ -1,0 +1,18 @@
+body, html {
+  color: gray;
+  font-family: monospace;
+  height: 100%;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+}
+h1{
+  text-align: center;
+}
+#showRecipe{
+  background-color: salmon;
+}
+input{
+  text-align: center  ;
+}
