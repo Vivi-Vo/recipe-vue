@@ -1,16 +1,23 @@
 <template>
   <v-row justify="center">
     <div v-for="dish in dishes" :key="dish.id">
-      <v-img :src="dish.image" @click.stop="dialog=true;getRecipeIngredients(dish.id);selectedDish=dish.title" />
+      <v-img
+        :src="dish.image"
+        @click.stop="dialog=true;getRecipeIngredients(dish.id);selectedDish=dish.title"
+      />
       <p>{{dish.title}}</p>
     </div>
 
-    <v-dialog dark width="600px" v-model="dialog">
+    <v-dialog width="600px" v-model="dialog">
       <v-card>
         <v-card-title>
           <span class="headline">{{selectedDish}}</span>
         </v-card-title>
-        <v-card-text>{{instructions}}</v-card-text>
+        <v-card-text>
+          <ul>
+            <li v-for="item in ingredients" :key="item.index">{{item}}</li>
+          </ul>
+        </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialog = false">Back</v-btn>
@@ -32,7 +39,8 @@ export default {
       instructions: [],
       api_key: "8056c060793247a1a67cd935a4434d5f",
       url_base: "https://api.spoonacular.com/recipes",
-      selectedDish: ""
+      selectedDish: "",
+      ingredients: []
     };
   },
   methods: {
@@ -42,7 +50,10 @@ export default {
       fetch(url)
         .then(res => res.json())
         .then(result => {
-          this.instructions = result;
+          this.ingredients.length = 0;
+          result.ingredients.forEach(element => {
+            this.ingredients.push(element.name);
+          });
         });
     }
   }
