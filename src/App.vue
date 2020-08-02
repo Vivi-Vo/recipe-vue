@@ -1,34 +1,23 @@
 <template>
   <v-app id="app">
-    <!-- Home component -->
-    <h1 id="greeting">Hi {{username}}!</h1>
-    <h2 id="header">What's in your fridge?</h2>
-
-    <div id="ingredientForm" class="form-group" v-for="(item, index) in ingredients" :key="index">
-      <input type="text" class="form-control" v-model="ingredients[index]" />
-    </div>
-    <button class="btn btn-secondary" @click="showModal=true">+</button>
-    <p class="text-center">Add More</p>
-
-    <button v-on:click="fetchRecipe" class="btn btn-primary" id="showRecipe">SHOW RECIPES</button>
-
+    <home></home>
     <!-- Recipes component -->
     <div v-for="dish in dishes" :key="dish.id">
       <img :src="dish.image" @click="showModal=true" />
       <p>{{dish.title}}</p>
     </div>
-
     <!-- Modal component -->
     <recipeCard id="recipe" v-if="showModal" @close="showModal= false"></recipeCard>
   </v-app>
 </template>
 
 <script>
-import recipeCard from "/Users/vivivo/code/recipe-vue/src/components/RecipeCard.vue";
+import recipeCard from "./components/RecipeCard.vue";
+import home from "./components/Home"
 export default {
   name: "app",
   components: {
-    recipeCard
+    home, recipeCard
   },
   data() {
     return {
@@ -92,7 +81,5 @@ h1 {
 #showRecipe {
   background-color: salmon;
 }
-input {
-  text-align: center;
-}
+
 </style>
