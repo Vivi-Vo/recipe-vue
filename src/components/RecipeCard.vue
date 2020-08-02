@@ -47,7 +47,7 @@ export default {
     return {
       dialog: false,
       instructions: [],
-      api_key: "8056c060793247a1a67cd935a4434d5f",
+      api_key: process.env.VUE_APP_API_KEY,
       url_base: "https://api.spoonacular.com/recipes",
       selectedDish: {},
       ingredients: []
