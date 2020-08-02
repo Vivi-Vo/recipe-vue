@@ -11,22 +11,30 @@
     >
       <v-text-field label="Ingredient" v-model="ingredients[index]" />
     </v-form>
-    <v-btn class="btn btn-secondary" @click="showModal=true">+</v-btn>
+    <v-btn @click="showModal=true">+</v-btn>
     <p class="text-center">Add More</p>
 
     <v-btn v-on:click="fetchRecipe" class="btn btn-primary" id="showRecipe">SHOW RECIPES</v-btn>
+    <recipeCard v-bind:dishes="dishes"></recipeCard>
   </div>
 </template>
 
 <script>
+
+import recipeCard from "./RecipeCard.vue";
 export default {
   name: "home",
+  components: {
+    recipeCard
+  },
+  props: {
+    username: String
+  },
   data() {
     return {
       api_key: "8056c060793247a1a67cd935a4434d5f",
       url_base: "https://api.spoonacular.com/recipes",
       ingredients: ["", "", ""],
-      username: "Vivi",
       dishes: []
     };
   },
