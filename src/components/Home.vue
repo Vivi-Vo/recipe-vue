@@ -15,6 +15,9 @@
     <v-btn class="mx-2" fab dark color="indigo">
       <v-icon dark>mdi-plus</v-icon>
     </v-btn>
+    <v-btn v-on:click="setTheme">
+      <v-icon dark>mdi-brightness-6</v-icon>
+    </v-btn>
     <v-btn v-on:click="fetchRecipe" class="btn btn-primary" id="showRecipe">SHOW RECIPES</v-btn>
     <recipeCard v-bind:dishes="dishes"></recipeCard>
   </v-container>
@@ -35,7 +38,8 @@ export default {
       api_key: process.env.VUE_APP_API_KEY,
       url_base: "https://api.spoonacular.com/recipes",
       ingredients: ["", "", ""],
-      dishes: []
+      dishes: [],
+      darkTheme: true
     };
   },
   methods: {
@@ -44,14 +48,18 @@ export default {
         this.url_base
       }/findByIngredients?ingredients=${this.ingredients.join(",")}&apiKey=${
         this.api_key
-      }&number=4`;
+      }&number=6`;
       fetch(url)
         .then(res => res.json())
         .then(result => {
           this.dishes = result;
         });
+    },
+    setTheme: function() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }
-  }
+  },
+
 };
 </script>
 
