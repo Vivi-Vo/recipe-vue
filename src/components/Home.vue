@@ -20,6 +20,9 @@
     </v-btn>
     <v-btn v-on:click="fetchRecipe" class="btn btn-primary" id="showRecipe">SHOW RECIPES</v-btn>
     <recipeCard v-bind:dishes="dishes"></recipeCard>
+    <v-btn small absolute bottom left icon @click="scrollToTop">
+      <v-icon>mdi-arrow-up-circle</v-icon>
+    </v-btn>
   </v-container>
 </template>
 
@@ -38,8 +41,7 @@ export default {
       api_key: process.env.VUE_APP_API_KEY,
       url_base: "https://api.spoonacular.com/recipes",
       ingredients: ["", "", ""],
-      dishes: [],
-      darkTheme: true
+      dishes: []
     };
   },
   methods: {
@@ -56,10 +58,16 @@ export default {
         });
     },
     setTheme: function() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      });
     }
-  },
-
+  }
 };
 </script>
 
