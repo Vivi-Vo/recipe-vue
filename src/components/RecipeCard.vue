@@ -8,9 +8,9 @@
       <p>{{dish.title}}</p>
     </v-list>
 
-    <v-dialog width="600px" v-model="dialog" id="popup">
+    <v-dialog width="600px" v-model="dialog">
       <v-card>
-        <v-card-title>
+        <v-card-title id="popup">
           <span class="headline">{{selectedDish.title}}</span>
         </v-card-title>
         <v-card-text>
@@ -75,8 +75,7 @@ export default {
         });
     },
     scrollToTop() {
-      var popup = document.getElementById("popup");
-      popup.scrollIntoView({
+      document.getElementById("popup").scrollIntoView({
         behavior: "smooth"
       });
     }
@@ -85,4 +84,7 @@ export default {
 </script>
 
 <style>
+html{
+  scroll-behavior: smooth;
+}
 </style>
