@@ -94,6 +94,11 @@ export default {
 #home {
   color: rgb(46, 44, 44);
   font-family: roboto;
+  min-height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 #showRecipe {
   background-color: salmon;

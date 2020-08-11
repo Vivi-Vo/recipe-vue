@@ -1,11 +1,15 @@
 <template>
-  <v-row justify="center">
-    <v-col v-for="dish in dishes" :key="dish.id" cols="12">
-      <v-card class="d-flex flex-no-wrap justify-space-between">
-            <v-img
-              :src="dish.image"
-              @click.stop="dialog=true;getRecipeIngredients(dish.id);selectedDish=dish"
-            />
+  <v-row justify="center" alignment="center">
+    <v-col v-for="dish in dishes" :key="dish.id" cols="6">
+      <v-card>
+        <div class="flex flex-no-wrap justify-space-between">
+          <v-img
+            :src="dish.image"
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            @click.stop="dialog=true;getRecipeIngredients(dish.id);selectedDish=dish"
+          />
+          <v-card-title v-text="dish.title"></v-card-title>
+        </div>
       </v-card>
     </v-col>
 
