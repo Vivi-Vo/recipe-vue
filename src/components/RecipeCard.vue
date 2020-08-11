@@ -1,14 +1,15 @@
 <template>
   <v-row justify="center">
-    <v-list v-for="dish in dishes" :key="dish.id">
-      <v-img
-        :src="dish.image"
-        @click.stop="dialog=true;getRecipeIngredients(dish.id);selectedDish=dish"
-      />
-      <p>{{dish.title}}</p>
-    </v-list>
+    <v-col v-for="dish in dishes" :key="dish.id" cols="12">
+      <v-card class="d-flex flex-no-wrap justify-space-between">
+            <v-img
+              :src="dish.image"
+              @click.stop="dialog=true;getRecipeIngredients(dish.id);selectedDish=dish"
+            />
+      </v-card>
+    </v-col>
 
-    <v-dialog width="600px" v-model="dialog">
+    <v-dialog v-model="dialog">
       <v-card>
         <v-card-title id="popup">
           <span class="headline">{{selectedDish.title}}</span>
@@ -18,19 +19,23 @@
             <li v-for="item in ingredients" :key="item.index">{{item}}</li>
           </ul>
         </v-card-text>
-        <v-btn raised color="purple lighten-4" @click="getInstruction(selectedDish.id)">Direction</v-btn>
+        <v-btn
+          raised
+          color="purple lighten-4"
+          @click="getInstruction(selectedDish.id)"
+        >Get Direction</v-btn>
 
         <v-card-text v-if="instructions.length">
           <ol>
             <li v-for="steps in instructions" :key="steps.number">{{steps.step}}</li>
           </ol>
         </v-card-text>
+
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn small absolute bottom left icon @click="scrollToTop">
+          <v-btn icon @click="scrollToTop">
             <v-icon>mdi-arrow-up-circle</v-icon>
           </v-btn>
-          <v-btn color="green darken-1" text @click="dialog = false">Back</v-btn>
+          <v-btn absolute bottom right color="green darken-1" text @click="dialog = false">Back</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -50,7 +55,8 @@ export default {
       api_key: process.env.VUE_APP_API_KEY,
       url_base: "https://api.spoonacular.com/recipes",
       selectedDish: {},
-      ingredients: []
+      ingredients: [],
+      instructionURL: ""
     };
   },
   methods: {
@@ -84,7 +90,7 @@ export default {
 </script>
 
 <style>
-html{
+html {
   scroll-behavior: smooth;
 }
 </style>

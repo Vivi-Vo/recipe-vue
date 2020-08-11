@@ -1,5 +1,6 @@
 body, html {
   color: gray;
+  background: #121212;
   font-family: monospace;
   height: 100%;
    display: flex;

@@ -11,36 +11,33 @@ export default {
   name: "app",
   components: {
     home
-  },
-  methods: {
-    getInstruction: function(id) {
-      const url = `${this.url_base}/${id}/analyzedInstructions?&apiKey=${this.api_key}&stepBreakdown=true`;
-      fetch(url)
-        .then(res => res.json())
-        .then(result => {
-          this.instructions = result[0].steps;
-        });
-    }
   }
 };
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Script&display=swap");
 #app {
-  color: gray;
-  font-family: monospace;
-  min-height: 100vh;
+  color: rgb(46, 44, 44);
+  font-family: roboto;
+  /* min-height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
   margin: 0;
+  /* background-image: url(./assets/cute-background.jpg); */
+}
+h2 {
+  text-align: center;
+  font-family: "Anton", sans-serif;
+  font-style: normal;
+  font-stretch: ultra-condensed;
 }
 h1 {
+  font-family: "League Script", cursive;
   text-align: center;
 }
-#showRecipe {
-  background-color: salmon;
-}
+
 </style>

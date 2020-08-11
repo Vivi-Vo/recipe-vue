@@ -1,29 +1,40 @@
 <template>
-  <v-container>
-    <h1 id="greeting">Hi {{username}}!</h1>
-    <h2 id="header">What's in your fridge?</h2>
+  <v-app id="home">
+    <v-container>
+      <v-row dense>
+        <v-col justify="center" alignment="center" cols="12">
+          <h1 id="greeting">Hi there!</h1>
+          <h2 id="header">WHAT'S IN YOUR FRIDGE?</h2>
 
-    <v-form
-      id="ingredientForm"
-      class="form-group"
-      v-for="(item, index) in ingredients"
-      :key="index"
-    >
-      <v-text-field label="Ingredient" v-model="ingredients[index]" />
-    </v-form>
+          <v-form
+            id="ingredientForm"
+            class="form-group"
+            v-for="(item, index) in ingredients"
+            :key="index"
+          >
+            <v-text-field label="Ingredient" v-model="ingredients[index]" />
+          </v-form>
 
-    <v-btn class="mx-2" fab dark color="indigo">
-      <v-icon dark>mdi-plus</v-icon>
-    </v-btn>
-    <v-btn v-on:click="setTheme">
-      <v-icon dark>mdi-brightness-6</v-icon>
-    </v-btn>
-    <v-btn v-on:click="fetchRecipe" class="btn btn-primary" id="showRecipe">SHOW RECIPES</v-btn>
-    <recipeCard v-bind:dishes="dishes"></recipeCard>
-    <v-btn small absolute bottom left icon @click="scrollToTop">
-      <v-icon>mdi-arrow-up-circle</v-icon>
-    </v-btn>
-  </v-container>
+          <div class="btn-group">
+            <v-btn class="mx-2" fab dark color="indigo">
+              <v-icon dark>mdi-plus</v-icon>
+            </v-btn>
+            <v-btn v-on:click="fetchRecipe" class="btn btn-primary" id="showRecipe">SHOW RECIPES</v-btn>
+          </div>
+        </v-col>
+      </v-row>
+
+      <recipeCard v-bind:dishes="dishes"></recipeCard>
+
+      <v-btn large absolute bottom left icon @click="scrollToTop">
+        <v-icon>mdi-arrow-up-circle</v-icon>
+      </v-btn>
+
+      <v-btn large absolute bottom right icon v-on:click="setTheme">
+        <v-icon dark>mdi-brightness-6</v-icon>
+      </v-btn>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -72,4 +83,31 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Script&display=swap");
+
+.btn-group {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+#home {
+  color: rgb(46, 44, 44);
+  font-family: roboto;
+}
+#showRecipe {
+  background-color: salmon;
+  margin-top: 10px;
+  padding: 10px;
+}
+h2 {
+  text-align: center;
+  font-family: "Anton", sans-serif;
+  font-style: normal;
+  font-stretch: ultra-condensed;
+}
+h1 {
+  font-family: "League Script", cursive;
+  text-align: center;
+}
 </style>
