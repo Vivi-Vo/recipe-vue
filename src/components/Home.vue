@@ -1,38 +1,41 @@
 <template>
   <v-app id="home">
-    <v-container>
-      <v-row dense>
-        <v-col justify="center" alignment="center" cols="12">
-          <h1 id="greeting">Hi there!</h1>
-          <h2 id="header">WHAT'S IN YOUR FRIDGE?</h2>
+    <v-container >
+      <v-row dense justify="center" alignment="center">
+        <v-col cols="12">
+          <h1 id="greeting" class="mb-n3">Hi there!</h1>
+          <h2 id="headline">WHAT'S IN YOUR FRIDGE?</h2>
 
-          <v-form
-            id="ingredientForm"
-            class="form-group"
-            v-for="(item, index) in ingredients"
-            :key="index"
-          >
-            <v-text-field label="Ingredient" v-model="ingredients[index]" />
-          </v-form>
+          <v-card class="elevation-12">
+            <v-card-text>
+              <v-form
+                id="ingredientForm"
+                class="form-group"
+                v-for="(item, index) in ingredients"
+                :key="index"
+              >
+                <v-text-field label="Ingredient" v-model="ingredients[index]" />
+              </v-form>
+            </v-card-text>
 
-          <div class="btn-group">
-            <v-btn class="mx-2" fab dark color="indigo">
-              <v-icon dark>mdi-plus</v-icon>
-            </v-btn>
-            <v-btn v-on:click="fetchRecipe" class="btn btn-primary" id="showRecipe">SHOW RECIPES</v-btn>
-          </div>
+            <div class="btn-group">
+              <v-btn class="mx-2" fab dark color="indigo">
+                <v-icon dark>mdi-plus</v-icon>
+              </v-btn>
+
+              <v-card-actions>
+                <v-btn v-on:click="fetchRecipe" class="btn btn-primary mb-4" id="showRecipe">SHOW RECIPES</v-btn>
+              </v-card-actions>
+            </div>
+          </v-card>
         </v-col>
       </v-row>
 
-      <recipeCard v-bind:dishes="dishes"></recipeCard>
-
-      <v-btn large absolute bottom left icon @click="scrollToTop">
-        <v-icon>mdi-arrow-up-circle</v-icon>
-      </v-btn>
-
-      <v-btn large absolute bottom right icon v-on:click="setTheme">
+      <v-btn small absolute top right icon v-on:click="setTheme">
         <v-icon dark>mdi-brightness-6</v-icon>
       </v-btn>
+
+      <recipeCard v-bind:dishes="dishes"></recipeCard>
     </v-container>
   </v-app>
 </template>
@@ -92,27 +95,31 @@ export default {
   flex-direction: column;
 }
 #home {
+  display: flex;
+  flex-direction: column;
+
   color: rgb(46, 44, 44);
   font-family: roboto;
-  min-height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 #showRecipe {
   background-color: salmon;
   margin-top: 10px;
   padding: 10px;
 }
-h2 {
+#greeting {
+  font-family: "League Script", cursive;
   text-align: center;
+  font-size:xx-large;
+}
+
+#headline {
+  text-align: center; 
   font-family: "Anton", sans-serif;
   font-style: normal;
   font-stretch: ultra-condensed;
+  font-size:x-large;
+  margin-top: 0;
+  margin-bottom: 50px;
 }
-h1 {
-  font-family: "League Script", cursive;
-  text-align: center;
-}
+
 </style>
