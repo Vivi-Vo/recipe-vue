@@ -1,37 +1,38 @@
 <template>
-  <v-app id="home">
-    <v-container >
+  <v-app >
+    <v-container id="home">
       <v-row dense justify="center" alignment="center">
         <v-col cols="12">
           <h1 id="greeting" class="mb-n3">Hi there!</h1>
           <h2 id="headline">WHAT'S IN YOUR FRIDGE?</h2>
 
-          <v-card class="elevation-12">
+          <v-card id="ingredientForm" class="elevation-12">
             <v-card-text>
-              <v-form
-                id="ingredientForm"
-                class="form-group"
-                v-for="(item, index) in ingredients"
-                :key="index"
-              >
+              <v-form class="form-group" v-for="(item, index) in ingredients" :key="index">
                 <v-text-field label="Ingredient" v-model="ingredients[index]" />
               </v-form>
             </v-card-text>
 
             <div class="btn-group">
-              <v-btn class="mx-2" fab dark color="indigo">
+              <v-btn class="mx-2" fab dark outlined color="teal">
                 <v-icon dark>mdi-plus</v-icon>
               </v-btn>
 
               <v-card-actions>
-                <v-btn v-on:click="fetchRecipe" class="btn btn-primary mb-4" id="showRecipe">SHOW RECIPES</v-btn>
+                <v-btn
+                  rounded
+                  class="btn mb-4"
+                  id="showRecipe"
+                  color="#E57373"
+                  v-on:click="fetchRecipe"
+                >SHOW RECIPES</v-btn>
               </v-card-actions>
             </div>
           </v-card>
         </v-col>
       </v-row>
 
-      <v-btn small absolute top right icon v-on:click="setTheme">
+      <v-btn class="mt-6" small absolute top right fab dark v-on:click="setTheme">
         <v-icon dark>mdi-brightness-6</v-icon>
       </v-btn>
 
@@ -97,29 +98,33 @@ export default {
 #home {
   display: flex;
   flex-direction: column;
-
   color: rgb(46, 44, 44);
-  font-family: roboto;
-}
+  font-family: roboto; 
+  max-width: 512px;}
 #showRecipe {
   background-color: salmon;
   margin-top: 10px;
   padding: 10px;
+  color: aliceblue;
 }
 #greeting {
   font-family: "League Script", cursive;
   text-align: center;
-  font-size:xx-large;
+  font-size: xx-large;
 }
 
 #headline {
-  text-align: center; 
+  text-align: center;
   font-family: "Anton", sans-serif;
   font-style: normal;
   font-stretch: ultra-condensed;
-  font-size:x-large;
+  font-size: x-large;
   margin-top: 0;
   margin-bottom: 50px;
 }
 
+#ingredientForm {
+  flex-basis: 30%;
+  flex-grow: 0;
+  }
 </style>
