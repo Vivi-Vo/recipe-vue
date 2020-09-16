@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app class="app">
     <v-container id="home">
       <v-row dense justify="center" alignment="center">
         <v-col cols="12">
@@ -8,8 +8,8 @@
 
           <v-card id="ingredientForm" class="elevation-12">
             <v-card-text>
-              <v-form class="form-group" v-for="(item, index) in ingredients" :key="index">
-                <v-text-field label="Ingredient" v-model="ingredients[index]" />
+              <v-form ref="form" class="form-group" lazy-validation v-for="(item, index) in ingredients" :key="index">
+                <v-text-field label="Ingredient" :rules="formRules" v-model="ingredients[index]" />
               </v-form>
             </v-card-text>
 
@@ -56,7 +56,10 @@ export default {
       api_key: process.env.VUE_APP_API_KEY,
       url_base: "https://api.spoonacular.com/recipes",
       ingredients: ["", "", ""],
-      dishes: []
+      dishes: [],
+      formRules:[
+        v => !!v || 'Ingredient is required'
+      ]
     };
   },
   methods: {
@@ -89,18 +92,14 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Script&display=swap");
 
-.btn-group {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
 #home {
   display: flex;
   flex-direction: column;
   color: rgb(46, 44, 44);
-  font-family: roboto; 
-  max-width: 512px;}
+  font-family: roboto;
+  max-width: 512px;
+  min-height: 100%;
+}
 #showRecipe {
   background-color: salmon;
   margin-top: 10px;
@@ -126,5 +125,12 @@ export default {
 #ingredientForm {
   flex-basis: 30%;
   flex-grow: 0;
-  }
+}
+
+.btn-group {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
 </style>

@@ -14,34 +14,38 @@
       </v-card>
     </v-col>
 
-    <v-dialog class="popup" v-model="dialog">
+    <v-dialog id="popup" v-model="dialog">
       <v-card>
-        <v-card-title >
+        <v-card-title id="dishTitle">
           <span class="headline">{{selectedDish.title}}</span>
         </v-card-title>
 
-        <v-card-text>
+        <v-avatar size="200" >
+          <v-img :src="recipeURL" />
+        </v-avatar>        
+
+      <v-card-text>
           <span class="headline">Time Cook: {{timeCook}} minutes</span>
         </v-card-text>
 
-        <v-btn class="btn mb-4" raised color="purple lighten-4">Ingredients</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn raised color="purple lighten-4">Direction</v-btn>
-
-        <v-card-text>
+        <v-btn class="btn mb-4" raised color="purple lighten-4" @click="showIngredient=!showIngredient">Ingredients</v-btn>
+        <v-card-text v-if="showIngredient">
           <ul>
             <li v-for="item in ingredients" :key="item.index">{{item}}</li>
           </ul>
         </v-card-text>
 
-        <v-card-text v-if="instructions.length">
-          <p>Steps: </p>
+        <v-spacer></v-spacer>
+        <v-btn raised color="purple lighten-4" @click="showInstruction=!showInstruction">Direction</v-btn> 
+
+
+        <v-card-text v-if="showInstruction">
           <ol>
             <li v-for="steps in instructions" :key="steps.number">{{steps.step}}</li>
           </ol>
         </v-card-text>
 
-        <v-card-text v-if="instructionURL">
+        <v-card-text v-if="showInstruction && instructionURL">
           <a :href="instructionURL" target="_blank">Recipe URL</a>
           <p></p>
         </v-card-text>
@@ -54,6 +58,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </v-row>
 </template>
 
@@ -72,16 +77,15 @@ export default {
       selectedDish: {},
       ingredients: [],
       instructionURL: "",
-      timeCook: ""
+      timeCook: "",
+      recipeURL: "",
+      showIngredient: false,
+      showInstruction: false
     };
   },
   methods: {
     getRecipeIngredients: function(id) {
-      this.ingredients.length = 0;
-      this.instructions.length = 0;
-      this.instructionURL = "";
-      this.timeCook = "";
-
+      this.resetState(); 
       const url = `${this.url_base}/${id}/information?&apiKey=${this.api_key}`;
       fetch(url)
         .then(res => res.json())
@@ -90,6 +94,7 @@ export default {
             this.ingredients.push(element.name);
           });
           this.timeCook = result.readyInMinutes;
+          this.recipeURL = result.image;
           if (result.analyzedInstructions.length === 0) {
             this.instructionURL = result.sourceUrl;
           } else {
@@ -97,8 +102,17 @@ export default {
           }
         });
     },
+    resetState: function(){
+      this.ingredients.length = 0;
+      this.instructions.length = 0;
+      this.instructionURL = "";
+      this.timeCook = "";
+      this.showIngredient = false;
+      this.showInstruction = false
+      },
+
     scrollToTop() {
-      document.getElementById("popup").scrollIntoView({
+      document.getElementById("dishTitle").scrollIntoView({
         behavior: "smooth"
       });
     }
@@ -113,9 +127,11 @@ html {
 .title {
   align-self: start;
   text-align: center;
-}
+};
+.dishTitle{
+  align-self: start;
+  text-align: center;
+  font-size: small;
+  }
 
-.popup {
-  
-}
 </style>
